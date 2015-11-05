@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:head>
+        <title>Cadastro de Calendarios</title>
+    </h:head>
+    <h:body>
+        <h:form id="form1">
+            <p:growl id="messages" showDetail="true"/>
+            <p:panel header="Adicionar Data"> 
+                <p:panelGrid columns="2">
+                    <h:outputLabel for="ano" value="Ano: " />
+                    <p:inputText  value="#{datasbean.frmtbano.ano}" required="true"/>
+                    
+                    <h:outputLabel for="ano" value="Tipo: " />
+                    <h:selectOneMenu value="#{datasbean.frmtbtipo.id}" style="width:100%">
+			        	<f:selectItems value="#{datasbean.listatipos}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo.id}" />
+			        </h:selectOneMenu>
+                    
+                    <h:outputLabel for="datainicio" value="Inicio: "/>                     
+                     <p:calendar value="#{datasbean.frmdatainicio}" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-03:00" required="true"/> 
+                    
+                    
+                    <h:outputLabel for="datatermino" value="Termino: " />
+                   	<p:calendar value="#{datasbean.frmdatafim}" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-03:00" required="true"/> 
+                  
+                    
+                    <h:outputLabel for="descricao" value="Descrição: " />
+                    <p:inputText  value="#{datasbean.frmdtdescricao}" required="true"/>
+                    
+                    <f:facet name="footer">
+                        <h:commandButton value="Adicionar" action="#{datasbean.adicionar}" update="tabeladatas" />
+                    </f:facet>
+                </p:panelGrid>
+             </p:panel>
+            </h:form>  
+              
+            <p:spacer height="30px;"/>
+          	
+           <h:form>
+           <p:panel>     
+                <p:dataTable value="#{datasbean.todasasdatas}" var="d"  editable="true" id="tabeladatas" 
+                	emptyMessage="Não há datas Cadastradas">
+                    <f:facet name="header">  
+                        Lista de Datas 
+                    </f:facet>
+
+                    <p:ajax event="rowEditInit" listener="#{datasbean.iniciaredicao}"/>
+                    <p:ajax event="rowEdit" listener="#{datasbean.alterar}" update=":form1:messages" />                     
+                    <p:ajax event="rowEditCancel" listener="#{datasbean.cancelar}" update=":form1:messages" /> 
+                    
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Ano" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{d.tbano.ano}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{datasbean.tbano.ano}" style="width:100%"/>
+                            </f:facet>  
+                        </p:cellEditor> 
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Descrição" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{d.descricao}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{datasbean.dtdescricao}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor> 
+                    </p:column>
+ 
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Inicio" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{d.datainicio.time}">
+                                	<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-03:00"/> 
+                                </h:outputText>  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                	<p:calendar id="datainicio" value="#{datasbean.datainicio}" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-03:00"/> 
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Termino" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{d.datafim.time}">
+                                	<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-03:00"/> 
+                                </h:outputText>  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                	<p:calendar id="datafim" value="#{datasbean.datafim}" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-03:00"/>
+                                	  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column>
+                    	<f:facet name="header">  
+                            <h:outputText value="Tipo" />  
+                        </f:facet>
+						<p:cellEditor>
+							<f:facet name="output"><h:outputText value="#{d.tbtipo.descricao}" /></f:facet>
+				            <f:facet name="input">
+			                   <h:selectOneMenu value="#{datasbean.tbtipo.id}" style="width:100%">
+			                       <f:selectItems value="#{datasbean.listatipos}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo.id}" />
+			                   </h:selectOneMenu>
+			               </f:facet>
+			        	</p:cellEditor>   
+					</p:column>
+ 
+               
+                    <p:column headerText="Editar" style="width:70px">  
+
+                        <p:rowEditor/>
+                        
+                    </p:column>
+                    
+                    <p:column headerText="Remover" style="width:70px">
+					 <p:commandLink styleClass="ui-icon ui-icon-trash" action="#{datasbean.remover}" value="Remover" update="tabeladatas">					 	  
+							    <f:setPropertyActionListener target="#{datasbean.tbdata}" value="#{d}" /> 
+					 </p:commandLink>					          
+		      	 </p:column> 
+
+                </p:dataTable>
+            </p:panel>
+             </h:form>
+       
+    </h:body>
+</html>

@@ -1,0 +1,24 @@
+Este projeto se refere aos testes 2 e 3.
+
+O projeto foi desenvolvido usando os recursos da máquina virtual disponiblizada.
+
+É muito importante que ao descompactar o projeto através do Maven exista uma conexão com a internet,
+pois todas as bibliotecas fazem referência ao repositório MAVEN.
+
+Neste projeto foi utilizado o Maven 3.3.3
+
+O RDBMS utilizado foi o Postgres já instalado na VM.
+
+Os testes foram feitos no servidor Jboss 6.4
+
+O banco de dados que o projeto faz referência é o "operador", buscando
+através do endereço "jdbc:postgresql://localhost:5432/operador"
+com as seguintes informações de acesso: usuario="operador" e senha="operador"
+
+O script para a criação do banco está na raiz deste projeto.
+
+- URL para acesso ao sistema CRUD: http://localhost:8080/ws-testes2_3/home.xhtml
+- URL para acesso ao wsdl do webservice: http://localhost:8080/ws-testes2_3/CalendarWS/CalendarWS?wsdl
+
+
+
