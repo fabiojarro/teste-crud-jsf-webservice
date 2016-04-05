@@ -14,14 +14,14 @@
 		<class>br.com.vectorx.testes2e3.entidade.Tbtipo</class>
 		
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/operador" />
-			<property name="javax.persistence.jdbc.user" value="operador" />
-			<property name="javax.persistence.jdbc.password" value="operador" />
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:~/test" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="" />
 
 			
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-			<property name="hibernate.default_schema" value="vectorx" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 		</properties>
